@@ -1,0 +1,33 @@
+﻿/* Espaciado extra para mobiles */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /* Reduce padding de filas de la tabla en pantallas pequeñas */
+    .table td, .table th {
+        padding: 0.45rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Opcional: destacar la primera columna en pantallas pequeñas */
+@media (max-width: 480px) {
+    .table tbody tr td:first-child {
+        font-weight: 600;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/*namespace ModeladoCliente1.Client.Pages {
+   
+}*/

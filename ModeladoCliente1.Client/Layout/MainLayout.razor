@@ -1,0 +1,19 @@
+﻿@inherits LayoutComponentBase
+@using ModeladoCliente1.Client.Layout
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        @Body
+    </main>
+</div>
+
+<style>
+/* Estilos simples para ejemplo */
+.page { display:flex; }
+.sidebar { width:230px; padding:10px; background:#00ffff; }
+main { flex:1; padding:20px; }
+</style>
