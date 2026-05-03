@@ -1,0 +1,39 @@
+﻿@page "/login"
+@inject AuthService AuthService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+
+<h3>Login</h3>
+
+<input @bind="email" placeholder="Email" />
+<br />
+<input @bind="password" type="password" placeholder="Password" />
+<br />
+<button @onclick="HacerLogin">Ingresar</button>
+
+<p>@mensaje</p>
+
+@code {
+    string email;
+    string password;
+    string mensaje;
+
+    async Task HacerLogin()
+    {
+        var token = await AuthService.Login(email, password);
+
+        if (token == null)
+        {
+            mensaje = "Login incorrecto";
+            return;
+        }
+
+        // aqui se guarda el token
+
+        await JS.InvokeVoidAsync("localStorage.setItem", "token", token);
+
+        mensaje = "Login correcto";
+
+        Nav.NavigateTo("/clientes");
+    }
+}

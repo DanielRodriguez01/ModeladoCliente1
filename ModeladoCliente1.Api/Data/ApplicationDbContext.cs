@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ModeladoCliente1.Api.Entidades;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ModeladoCliente1.Api.Data
 {
-    public class ApplicationDbContext : DbContext //DbContext es la clase central de EF que representa una sesión con la base de datos: permite consultar y guardar entidades
+    public class ApplicationDbContext : IdentityDbContext<Usuario> //DbContext es la clase central de EF que representa una sesión con la base de datos: permite consultar y guardar entidades
     {
-        //Constructor que se ejecuta al crear una instancia...
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
@@ -24,7 +24,6 @@ namespace ModeladoCliente1.Api.Data
 
 
 
-            // Aqui esta la relación 1:N (o sea uno a muchos) Cliente -> RegistroCliente...
 
             modelBuilder.Entity<RegistroCliente>()
                 .HasOne(r => r.Cliente)

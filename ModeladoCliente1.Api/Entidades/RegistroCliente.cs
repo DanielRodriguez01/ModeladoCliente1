@@ -1,15 +1,24 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations; 
 
 namespace ModeladoCliente1.Api.Entidades
 {
     public class RegistroCliente
     {
-        public int IDRegistro { get; set; } // Clave primaria de mi tabla de Registro
-        public int IDCliente { get; set; }  // Clave Forenea de mi tabla Cliente
+        public int IDRegistro { get; set; }
+
+        public int IDCliente { get; set; }
+
+        
+        [Required(ErrorMessage = "La fecha es obligatoria")]
         public DateTime FechaRegistro { get; set; }
+
+        
+        [Required(ErrorMessage = "La descripción es obligatoria")]
+        [MinLength(5, ErrorMessage = "La descripción debe tener al menos 5 caracteres")]
         public string Descripcion { get; set; } = string.Empty;
 
-        // Union de las claves
         public Cliente? Cliente { get; set; }
     }
 }
+    
