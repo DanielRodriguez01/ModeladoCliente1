@@ -1,60 +1,102 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">ModeladoCliente1.Client</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <a class="navbar-brand" href="">
+            ModeladoCliente1
+        </a>
+
+        <button title="Navigation menu"
+                class="navbar-toggler"
+                @onclick="ToggleNavMenu">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass nav-scrollable"
+     @onclick="ToggleNavMenu">
+
     <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-       @*  <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div> *@
-        <div class="nav-item px-3">
-            <ul>
-                <li><NavLink class="nav-link" href="">Inicio</NavLink></li>
-                <li><NavLink class="nav-link" href="login">Login</NavLink></li>
-                <li><NavLink class="nav-link" href="clientes">Clientes</NavLink></li>
-            </ul>
 
-            <style>
-                .nav-link {
-                    display: block;
-                    padding: 6px 0;
-                    text-decoration: none;
-                    color: inherit;
-                    background-color:blue;
-                }
+        <!-- INICIO -->
 
-                    .nav-link.active {
-                        font-weight: bold;
-                    }
-            </style>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link"
+                     href=""
+                     Match="NavLinkMatch.All">
+
+                🏠 Inicio
+
+            </NavLink>
         </div>
+
+        <!-- LOGIN -->
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link"
+                     href="login">
+
+                🔐 Login
+
+            </NavLink>
+        </div>
+
     </nav>
 </div>
 
+<style>
+
+    .top-row {
+        background: #0f172a;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .navbar-brand {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .nav-scrollable {
+        padding-top: 20px;
+    }
+
+    .nav-link {
+        color: #e2e8f0;
+        font-size: 17px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        padding: 12px 16px;
+        transition: all 0.3s ease;
+        background: transparent;
+    }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+        }
+
+</style>
+
 @code {
+
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass =>
+        collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
 }

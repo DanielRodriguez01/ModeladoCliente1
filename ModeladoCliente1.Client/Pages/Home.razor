@@ -1,7 +1,61 @@
 ﻿@page "/"
 
-<PageTitle>Programa de registro de Clientes!</PageTitle>
+<PageTitle>Inicio</PageTitle>
 
-<h1>Hola Profesor Algorry</h1>
+<div class="home-container">
 
-<h2>Lo invito a ver mi primer proyecto Front-End</h2>
+    <div class="home-card">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png"
+             alt="C# Logo"
+             class="logo-csharp" />
+
+        <h1>Bienvenido Profesor Algorry</h1>
+
+        <h3>Proyecto Modelado 2025</h3>
+
+    </div>
+
+</div>
+
+<style>
+
+    .home-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        padding: 20px;
+    }
+
+    .home-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 60px;
+        max-width: 700px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    .logo-csharp {
+        width: 120px;
+        margin-bottom: 30px;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    h3 {
+        font-size: 26px;
+        color: #cbd5e1;
+        font-weight: 400;
+    }
+
+</style>
