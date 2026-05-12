@@ -1,22 +1,57 @@
 ﻿@page "/login"
+
 @inject AuthService AuthService
 @inject NavigationManager Nav
 @inject IJSRuntime JS
 
-<h3>Login</h3>
+<PageTitle>Login</PageTitle>
 
-<input @bind="email" placeholder="Email" />
-<br />
-<input @bind="password" type="password" placeholder="Password" />
-<br />
-<button @onclick="HacerLogin">Ingresar</button>
+<div class="login-container">
 
-<p>@mensaje</p>
+    <div class="login-card">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png"
+             class="logo"
+             alt="Logo C#" />
+
+        <h2>Iniciar Sesión</h2>
+
+        <p class="subtitulo">Proyecto Modelado 2025</p>
+
+        <div class="form-group">
+            <input @bind="email"
+                   placeholder="Correo electrónico"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <input @bind="password"
+                   type="password"
+                   placeholder="Contraseña"
+                   class="form-control" />
+        </div>
+
+        <button class="btn-login"
+                @onclick="HacerLogin">
+            Ingresar
+        </button>
+
+        @if (!string.IsNullOrWhiteSpace(mensaje))
+        {
+            <div class="mensaje">
+                @mensaje
+            </div>
+        }
+
+    </div>
+
+</div>
 
 @code {
-    string email;
-    string password;
-    string mensaje;
+
+    string email = "";
+    string password = "";
+    string mensaje = "";
 
     async Task HacerLogin()
     {
@@ -24,16 +59,94 @@
 
         if (token == null)
         {
-            mensaje = "Login incorrecto";
+            mensaje = "Usuario o contraseña incorrectos";
             return;
         }
 
-        // aqui se guarda el token
-
+        // Guardar token
         await JS.InvokeVoidAsync("localStorage.setItem", "token", token);
 
         mensaje = "Login correcto";
 
-        Nav.NavigateTo("/clientes");
+        Nav.NavigateTo("/clientes", forceLoad: true);
     }
 }
+
+<style>
+
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        padding: 20px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        text-align: center;
+        color: white;
+    }
+
+    .logo {
+        width: 90px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 34px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .subtitulo {
+        color: #cbd5e1;
+        margin-bottom: 30px;
+        font-size: 18px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: none;
+        font-size: 16px;
+        outline: none;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 14px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .btn-login:hover {
+            background: #1d4ed8;
+            transform: scale(1.02);
+        }
+
+    .mensaje {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #f8fafc;
+    }
+
+</style>

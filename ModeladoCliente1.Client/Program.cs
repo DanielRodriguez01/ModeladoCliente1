@@ -5,34 +5,27 @@ using System;
 using System.Net.Http;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+
+// 🔐 Servicios
 builder.Services.AddScoped<AuthService>();
 
-// IMPORTANTE: BaseAddress debe ser la URL de tu API (ejemplo: https://localhost:5001/)
-
-builder.Services.AddScoped(sp =>
-{
-    var http = new HttpClient
-    {
-        BaseAddress = new Uri("https://localhost:44355/")
-    };
-
-    return http;
-});
-
+// 🔐 Handler JWT
 builder.Services.AddScoped<AuthHttpHandler>();
 
+// 🔐 HttpClient principal
 builder.Services.AddScoped(sp =>
 {
     var handler = sp.GetRequiredService<AuthHttpHandler>();
+
     handler.InnerHandler = new HttpClientHandler();
 
     return new HttpClient(handler)
     {
-        BaseAddress = new Uri("https://localhost:44355/")
+        BaseAddress = new Uri("https://localhost:44329/")
     };
 });
-
 
 await builder.Build().RunAsync();
