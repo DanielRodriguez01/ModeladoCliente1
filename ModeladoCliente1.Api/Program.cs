@@ -74,6 +74,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddOutputCache();
+
 
 var app = builder.Build();
 
@@ -111,6 +113,8 @@ app.UseHttpsRedirection();
 
 
 app.UseCors("AllowBlazorClient");
+
+app.UseOutputCache();
 
 
 

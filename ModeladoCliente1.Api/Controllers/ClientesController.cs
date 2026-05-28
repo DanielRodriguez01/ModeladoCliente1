@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using ModeladoCliente1.Api.Interfaces;
 using ModeladoCliente1.Shared.DTOs;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace ModeladoCliente1.Api.Controllers
 {
@@ -18,6 +19,7 @@ namespace ModeladoCliente1.Api.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 60)]
         public async Task<ActionResult<List<ClienteDto>>> Get()
         {
             var lista = await _repo.ObtenerClientes();
