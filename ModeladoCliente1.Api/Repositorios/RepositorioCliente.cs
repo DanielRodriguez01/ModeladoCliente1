@@ -19,9 +19,12 @@ namespace ModeladoCliente1.Api.Repositorios
 
         public async Task<List<ClienteDto>> ObtenerClientes()
         {
-            var clientes = await _context.Clientes.Include(c => c.Registros).ToListAsync();
+            Console.WriteLine("******** CONSULTANDO CLIENTES EN SQL SERVER ********");
 
-            // Mapeo manual: Entidad -> DTO
+            var clientes = await _context.Clientes
+                .Include(c => c.Registros)
+                .ToListAsync();
+
             return clientes.Select(c => new ClienteDto
             {
                 ID = c.ID,

@@ -8,18 +8,24 @@ namespace ModeladoCliente1.Api.Controllers
 {
     [ApiController]
     [Route("api/clientes")]
-    [Authorize] // con este cambio cualquier usuario logueado puede entrar...
+    [Authorize]
     public class ClientesController : ControllerBase
     {
-        private readonly IRepositorioCliente _repo;
+        private const string CacheTag = "Clientes";
 
-        public ClientesController(IRepositorioCliente repo)
+        private readonly IRepositorioCliente _repo;
+        private readonly IOutputCacheStore _cacheStore;
+
+        public ClientesController(
+            IRepositorioCliente repo,
+            IOutputCacheStore cacheStore)
         {
             _repo = repo;
+            _cacheStore = cacheStore;
         }
 
         [HttpGet]
-        [OutputCache(Duration = 60)]
+        [OutputCache(Duration = 60, Tags = new[] { CacheTag })]
         public async Task<ActionResult<List<ClienteDto>>> Get()
         {
             var lista = await _repo.ObtenerClientes();
@@ -30,17 +36,25 @@ namespace ModeladoCliente1.Api.Controllers
         public async Task<ActionResult<ClienteDto>> GetPorId(int id)
         {
             var cliente = await _repo.ObtenerClientePorId(id);
-            if (cliente == null) return NotFound();
+
+            if (cliente == null)
+                return NotFound();
+
             return Ok(cliente);
         }
 
-        //  aqui solo los administradores puede crear clientes
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ClienteDto>> Post([FromBody] CrearClienteDto dto)
         {
             var creado = await _repo.CrearCliente(dto);
-            return CreatedAtAction(nameof(GetPorId), new { id = creado.ID }, creado);
+
+            await _cacheStore.EvictByTagAsync(CacheTag, default);
+
+            return CreatedAtAction(
+                nameof(GetPorId),
+                new { id = creado.ID },
+                creado);
         }
     }
 }
