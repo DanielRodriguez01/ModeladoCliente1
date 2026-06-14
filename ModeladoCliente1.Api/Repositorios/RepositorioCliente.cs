@@ -19,7 +19,7 @@ namespace ModeladoCliente1.Api.Repositorios
 
         public async Task<List<ClienteDto>> ObtenerClientes()
         {
-            Console.WriteLine("******** CONSULTANDO CLIENTES EN SQL SERVER ********");
+            System.Diagnostics.Debug.WriteLine("******** CONSULTANDO CLIENTES EN SQL SERVER ********");
 
             var clientes = await _context.Clientes
                 .Include(c => c.Registros)
